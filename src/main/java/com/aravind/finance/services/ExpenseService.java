@@ -15,8 +15,6 @@ public class ExpenseService {
     @Autowired
     private ExpenseRepository expenseRepository;
 
-//    RestTemplate restTemplate = new RestTemplate();
-
     public ExpenseModel saveOrUpdateExpense(ExpenseModel itemModel) {
         try {
             return expenseRepository.save(itemModel);
