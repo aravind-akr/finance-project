@@ -1,6 +1,7 @@
 package com.aravind.finance.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.annotations.ColumnTransformer;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,34 +12,33 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
-public class PurchaseModel {
+public class ExpenseModel {
 
     @NotBlank(message = "user Id is required")
     private String userId;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int itemId;
+    private int expenseId;
 
     @NotBlank(message = "Item Name is required")
-    private String itemName;
+    private String expenseName;
 
     @NotBlank(message = "Item Category is required")
     private String category;
+
+    private String subCategory;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date paymentDate;
 
     @NotNull(message = "Price is required")
-    private Double price;
+    private Double amount;
 
     @NotBlank(message = "Payment Mode is required")
     private String paymentMode;
 
-    @NotBlank(message = "Item Name is required")
-    private String place;
-
-    public PurchaseModel(){}
+    public ExpenseModel(){}
 
     public String getUserId() {
         return userId;
@@ -48,20 +48,20 @@ public class PurchaseModel {
         this.userId = userId;
     }
 
-    public int getItemId() {
-        return itemId;
+    public int getExpenseId() {
+        return expenseId;
     }
 
-    public void setItemId(int itemId) {
-        this.itemId = itemId;
+    public void setExpenseId(int expenseId) {
+        this.expenseId = expenseId;
     }
 
-    public String getItemName() {
-        return itemName;
+    public String getExpenseName() {
+        return expenseName;
     }
 
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
+    public void setExpenseName(String expenseName) {
+        this.expenseName = expenseName;
     }
 
     public String getCategory() {
@@ -80,12 +80,12 @@ public class PurchaseModel {
         this.paymentDate = paymentDate;
     }
 
-    public Double getPrice() {
-        return price;
+    public Double getAmount() {
+        return amount;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
+    public void setAmount(Double amount) {
+        this.amount = amount;
     }
 
     public String getPaymentMode() {
@@ -96,11 +96,11 @@ public class PurchaseModel {
         this.paymentMode = paymentMode;
     }
 
-    public String getPlace() {
-        return place;
+    public String getSubCategory() {
+        return subCategory;
     }
 
-    public void setPlace(String place) {
-        this.place = place;
+    public void setSubCategory(String subCategory) {
+        this.subCategory = subCategory;
     }
 }
