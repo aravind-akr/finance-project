@@ -16,6 +16,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/finance/expenses")
@@ -57,11 +58,6 @@ public class ExpenseItemController {
         return view;
     }
 
-    /**
-     * If the userId has only one purchase
-     * @param userId
-     * @return
-     */
     @GetMapping("/user-single-expense/{userId}")
     public ResponseEntity<?> getSingleExpensesOfUser(@PathVariable String userId){
         ExpenseModel expenseModel = expenseService.getSingleExpenseOfUser(userId);
@@ -98,5 +94,19 @@ public class ExpenseItemController {
             throw new ExpenseException("No expenses found");
         }
         return expenseByID;
+    }
+
+    //Delete the expense with its id
+    @DeleteMapping("/deleteEx/{expenseId}")
+    public ResponseEntity<?> deleteExpenseById(@PathVariable int expenseId){
+        expenseService.deleteExpenseByID(expenseId);
+        return new ResponseEntity<>("Expense with ID "+ expenseId +" is deleted", HttpStatus.OK);
+    }
+
+    //Delete the expenses of the user.
+    @DeleteMapping("/deleteUs/{userId}")
+    public ResponseEntity<?> deleteUserExpenses(@PathVariable String userId){
+        List<Integer> expenses = expenseService.deleteUserExpenses(userId);
+        return new ResponseEntity<>(String.format("User with ID %s expenses %s are deleted", userId, expenses),HttpStatus.OK);
     }
 }
