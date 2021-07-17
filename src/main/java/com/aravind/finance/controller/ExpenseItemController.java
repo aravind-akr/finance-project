@@ -1,5 +1,6 @@
 package com.aravind.finance.controller;
 
+import com.aravind.finance.exceptions.ExpenseException;
 import com.aravind.finance.exceptions.UserIdException;
 import com.aravind.finance.models.ExpenseModel;
 import com.aravind.finance.repositories.ExpenseRepository;
@@ -88,5 +89,14 @@ public class ExpenseItemController {
     @GetMapping("/mode-expense/{mode}")
     public Iterable<ExpenseModel> getAllExpensesByPaymentMode(@PathVariable String mode){
         return expenseService.getAllExpensesByMode(mode);
+    }
+
+    @GetMapping("/get/{expenseId}")
+    public ExpenseModel getExpenseById(@PathVariable int expenseId){
+        ExpenseModel expenseByID = expenseService.getExpenseByID(expenseId);
+        if(expenseByID == null){
+            throw new ExpenseException("No expenses found");
+        }
+        return expenseByID;
     }
 }

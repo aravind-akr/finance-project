@@ -8,6 +8,7 @@ import com.aravind.finance.models.ExpenseModel;
 import com.aravind.finance.repositories.ExpenseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Service
 public class ExpenseService {
@@ -91,4 +92,11 @@ public class ExpenseService {
         }
     }
 
+    public ExpenseModel getExpenseByID(int expenseId){
+        ExpenseModel expense = expenseRepository.findByExpenseId(expenseId);
+        if(expense == null) {
+            throw new ExpenseException("There is no exception with the ID "+ expenseId);
+        }
+        return expense;
+    }
 }

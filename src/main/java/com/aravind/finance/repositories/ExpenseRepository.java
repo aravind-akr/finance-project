@@ -19,4 +19,6 @@ public interface ExpenseRepository extends CrudRepository<ExpenseModel,Long> {
 
     Iterable<ExpenseModel> findAllByPaymentModeIgnoreCase(String paymentMode);
 
+    ExpenseModel findByExpenseId(int expenseId);
+
 }

@@ -3,10 +3,7 @@ package com.aravind.finance.models;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.ColumnTransformer;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -29,7 +26,7 @@ public class ExpenseModel {
 
     private String subCategory;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "DD-mm-yyyy")
     private Date paymentDate;
 
     @NotNull(message = "Price is required")
@@ -37,6 +34,23 @@ public class ExpenseModel {
 
     @NotBlank(message = "Payment Mode is required")
     private String paymentMode;
+
+    @JsonFormat(pattern = "DD-mm-yyyy")
+    @Column(updatable = false)
+    private Date createdAt;
+
+    @JsonFormat(pattern = "DD-mm-yyyy")
+    private Date updatedAt;
+
+    @PrePersist
+    protected void onCreate(){
+        this.createdAt = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate(){
+        this.updatedAt = new Date();
+    }
 
     public ExpenseModel(){}
 
@@ -102,5 +116,21 @@ public class ExpenseModel {
 
     public void setSubCategory(String subCategory) {
         this.subCategory = subCategory;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }
