@@ -1,0 +1,6 @@
+[submodule "finance-project"]
+	path = finance-project
+	url = git@github.com:aravind-akr/finance-project.git
+[submodule "finance-react"]
+	path = finance-react
+	url = git@github.com:aravind-akr/finance-project.git
